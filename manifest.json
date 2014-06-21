@@ -1,0 +1,14 @@
+{
+  "manifest_version": 2,
+
+  "name": "Clear FB Ads",
+  "version": "0.11",
+  "description": "Clear FB Ads.",
+
+  "content_scripts": [
+    {
+      "matches": [ "*://www.facebook.com/*" ],
+      "js": [ "remove_ads.js" ]
+    }
+  ]
+}
