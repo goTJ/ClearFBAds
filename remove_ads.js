@@ -37,8 +37,6 @@ function SendEvent() {
 }
 
 function ClearAds() {
-  if (window.location.pathname != "/")
-    return;
   var result = false;
 
   // Remove side bar Ads.
@@ -48,17 +46,26 @@ function ClearAds() {
     result = true;
   }
 
-  // Remove stream Ads.
-  // I assume all posts have data-insertion-position attribute, and
-  // all ads posts don't have data-timestamp attribute.
-  var elements = document.getElementsByTagName("div");
-  for (var i = elements.length - 1; i >= 0; i--) {
-    if (elements[i].getAttribute('data-insertion-position') &&
-        !elements[i].getAttribute('data-timestamp')) {
-      elements[i].parentNode.removeChild(elements[i]);
-      result = true;
-    }
+  // Remove side bar Ads.
+  var element = document.getElementById("pagelet_side_ads");
+  if (element != null) {
+    element.parentNode.removeChild(element);
+    result = true;
   }
+
+  // Remove stream Ads on homepage.
+  // I assume all posts have data-insertion-position attribute,
+  // and all ads posts don't have data-timestamp attribute.
+  if (window.location.pathname == "/") {
+    var elements = document.getElementsByTagName("div");
+    for (var i = elements.length - 1; i >= 0; i--) {
+      if (elements[i].getAttribute('data-insertion-position') &&
+          !elements[i].getAttribute('data-timestamp')) {
+        elements[i].parentNode.removeChild(elements[i]);
+        result = true;
+      }
+    }
+  
 
   if (result) {
     SendEvent();
