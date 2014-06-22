@@ -3,7 +3,7 @@ var INTERVAL = 500; // ms
 AddGaScript();
 var counter = 1;
 var interval_id = window.setInterval(function(){
-  RemoveSponsorPage();
+  ClearAds();
   counter++;
 }, INTERVAL);
 
@@ -36,7 +36,7 @@ function SendEvent() {
   );
 }
 
-function RemoveSponsorPage() {
+function ClearAds() {
   if (window.location.pathname != "/")
     return;
   var result = false;
@@ -51,8 +51,8 @@ function RemoveSponsorPage() {
   // Remove stream Ads.
   // I assume all posts have data-insertion-position attribute, and
   // all ads posts don't have data-timestamp attribute.
-  var elements = document.getElementsByTagName("div"), i;
-  for (i in elements) {
+  var elements = document.getElementsByTagName("div");
+  for (var i = elements.length - 1; i >= 0; i--) {
     if (elements[i].getAttribute('data-insertion-position') &&
         !elements[i].getAttribute('data-timestamp')) {
       elements[i].parentNode.removeChild(elements[i]);
