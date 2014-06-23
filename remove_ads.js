@@ -2,7 +2,7 @@ var INTERVAL = 500; // ms
 
 AddGaScript();
 var counter = 1;
-var interval_id = window.setInterval(function(){
+window.setInterval(function(){
   ClearAds();
   counter++;
 }, INTERVAL);
@@ -65,7 +65,7 @@ function ClearAds() {
         result = true;
       }
     }
-  
+  }
 
   if (result) {
     SendEvent();
