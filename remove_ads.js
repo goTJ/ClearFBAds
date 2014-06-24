@@ -47,23 +47,25 @@ function ClearAds() {
   }
 
   // Remove side bar Ads.
-  var element = document.getElementById("pagelet_side_ads");
+  element = document.getElementById("pagelet_side_ads");
   if (element != null) {
     element.parentNode.removeChild(element);
     result = true;
   }
 
   // Remove stream Ads on homepage.
-  // I assume all posts have data-insertion-position attribute,
-  // and all ads posts don't have data-timestamp attribute.
-  if (window.location.pathname == "/") {
-    var elements = document.getElementsByTagName("div");
-    for (var i = elements.length - 1; i >= 0; i--) {
-      if (elements[i].getAttribute('data-insertion-position') &&
-          !elements[i].getAttribute('data-timestamp')) {
-        elements[i].parentNode.removeChild(elements[i]);
-        result = true;
-      }
+  // In sponsor post, there is a span with class "uiStreamSponsoredLink".
+  var elements = document.getElementsByClassName("uiStreamSponsoredLink");
+  for (var i = elements.length - 1; i >= 0; i--) {
+    var e = elements[i];
+    while (!e.hasAttribute("data-insertion-position")) {
+      e = e.parentNode;
+      if (!e)
+        break;
+    }
+    if (e.hasAttribute("data-insertion-position")) {
+      e.parentNode.removeChild(e);
+      result = true;
     }
   }
 

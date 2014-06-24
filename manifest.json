@@ -2,7 +2,7 @@
   "manifest_version": 2,
 
   "name": "Clear FB Ads",
-  "version": "0.14",
+  "version": "0.15",
   "description": "Clear FB Ads.",
 
   "content_scripts": [
