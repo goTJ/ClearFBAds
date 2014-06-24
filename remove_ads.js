@@ -54,16 +54,19 @@ function ClearAds() {
   }
 
   // Remove stream Ads on homepage.
-  // In sponsor post, there is a span with class "uiStreamSponsoredLink".
+  // We assume that there is an anchor with class "uiStreamSponsoredLink" in a sponsor post,
+  // and there is an attribute data-dedupekey in every div block of a post.
   var elements = document.getElementsByClassName("uiStreamSponsoredLink");
   for (var i = elements.length - 1; i >= 0; i--) {
     var e = elements[i];
-    while (!e.hasAttribute("data-insertion-position")) {
+    while (typeof e.hasAttribute == "function" &&
+           !e.hasAttribute("data-dedupekey")) {
       e = e.parentNode;
       if (!e)
         break;
     }
-    if (e.hasAttribute("data-insertion-position")) {
+    if (typeof e.hasAttribute == "function" &&
+        e.hasAttribute("data-dedupekey")) {
       e.parentNode.removeChild(e);
       result = true;
     }
